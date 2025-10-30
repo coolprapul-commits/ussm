@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>USSM Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { background: #f4f6fa; }
+    .login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .error { color: #e74c3c; margin-top: 10px; }
+    html, body {
+      height: 100%;
+    }
+    body {
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #232a34 0%, #2e3c5d 40%, #2b4a5f 70%, #3a7bd5 100%);
+      min-height: 100vh;
+      margin: 0;  
+      padding: 0;
+      color: var(--text);
+      transition: background 0.7s, color 0.4s;
+      overflow-x: hidden;
+      position: relative;
+      animation: fadeInBg 1.2s;
+    }
+    @keyframes fadeInBg {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    /* Animated gradient overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -2;
+      background: radial-gradient(ellipse 80% 60% at 60% 20%, #3a7bd5cc 0%, #232a34 100%);
+      opacity: 0.7;
+      pointer-events: none;
+      animation: gradientMove 12s linear infinite alternate;
+    }
+    @keyframes gradientMove {
+      0% { filter: blur(0px); background-position: 60% 20%; }
+      100% { filter: blur(8px); background-position: 40% 80%; }
+    }
+    /* Optional: floating particles */
+    .particles {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.18;
+      background: linear-gradient(135deg, #3a7bd5 40%, #2e3c5d 100%);
+      filter: blur(2px);
+      animation: floatParticle 16s linear infinite;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-40px) scale(1.2); }
+      100% { transform: translateY(0) scale(1); }
+    }
+    :root {
+      --primary: #3a7bd5;
+      --primary-dark: #245ea8;
+      --bg: #f4f6fa;
+      --card-bg: #f9fbfd;
+      --card-bg-dark: #232a34;
+      --text: #222;
+      --text-dark: #e2e6ee;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --radius: 16px;
+      --status-green: #2ecc40;
+      --status-yellow: #f1c40f;
+      --status-red: #e74c3c;
+      --pulse: #3a7bd5;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <form id="loginForm" class="p-4 bg-white rounded shadow" style="min-width:320px;">
+      <h2 class="mb-4 text-center">USSM Login</h2>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" class="form-control" required autofocus>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+      <div id="errorMsg" class="error"></div>
+    </form>
+  </div>
+  <script>
+    document.getElementById('loginForm').onsubmit = function(e) {
+      e.preventDefault();
+      const user = document.getElementById('username').value.trim().toLowerCase();
+      const pass = document.getElementById('password').value;
+      let role = '';
+      if (user === 'admin' && pass === 'admin123') {
+        role = 'admin';
+      } else if (user === 'developer' && pass === 'dev123') {
+        role = 'developer';
+      } else if (user === 'user' && pass === 'user123') {
+        role = 'user';
+      }
+      if (role) {
+        localStorage.setItem('ussm_logged_in', '1');
+        localStorage.setItem('ussm_role', role);
+        window.location.href = 'dashboard.html';
+      } else {
+        document.getElementById('errorMsg').textContent = 'Invalid credentials';
+      }
+    };
+    // Do not auto-redirect to dashboard. Always require login.
+  </script>
+</body>
+</html>
+
+     
