@@ -80,48 +80,174 @@
       --status-red: #e74c3c;
       --pulse: #3a7bd5;
     }
+    .designer-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .designer-bg .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.18;
+      filter: blur(8px);
+      animation: floatShape 18s linear infinite alternate;
+    }
+    .designer-bg .shape1 {
+      width: 320px; height: 320px;
+      background: linear-gradient(135deg, #3a7bd5 60%, #00d2ff 100%);
+      top: 8%; left: 4%;
+      animation-delay: 0s;
+    }
+    .designer-bg .shape2 {
+      width: 180px; height: 180px;
+      background: linear-gradient(135deg, #e0eafc 60%, #b8c6db 100%);
+      bottom: 12%; right: 8%;
+      animation-delay: 4s;
+    }
+    .designer-bg .shape3 {
+      width: 120px; height: 120px;
+      background: linear-gradient(135deg, #f39c12 60%, #e74c3c 100%);
+      top: 60%; right: 18%;
+      animation-delay: 8s;
+    }
+    @keyframes floatShape {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-40px) scale(1.1); }
+    }
+    .glass-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(2.5px);
+      z-index: 1;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <form id="loginForm" class="p-4 bg-white rounded shadow" style="min-width:320px;">
-      <h2 class="mb-4 text-center">USSM Login</h2>
-      <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" id="username" class="form-control" required autofocus>
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" id="password" class="form-control" required>
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Login</button>
-      <div id="errorMsg" class="error"></div>
-    </form>
+  <!-- Designer background -->
+  <div class="designer-bg">
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+    <div class="shape shape3"></div>
+    <div class="glass-overlay"></div>
   </div>
+    
+  <div class="login-container">
+    <div class="card glass-card p-4 shadow-lg mx-auto" style="max-width: 370px; width: 100%; border-radius: 2.2em; backdrop-filter: blur(8px); background: rgba(255,255,255,0.85);">
+      <div class="text-center mb-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/2919/2919600.png" alt="Logo" style="width: 54px; height: 54px; border-radius: 50%; box-shadow: 0 2px 8px #3a7bd544; background: #fff; margin-bottom: 0.7em;">
+        <h2 class="fw-bold mb-1" style="background: linear-gradient(90deg, #3a7bd5, #00d2ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.1rem;">USSM Login</h2>
+      </div>
+      <form id="loginForm" autocomplete="off">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" id="username" class="form-control form-control-lg" required autofocus placeholder="Enter your username">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-control form-control-lg" required placeholder="Enter your password">
+        </div>
+        <button type="submit" class="btn btn-primary w-100 py-2 animated-btn" style="font-size:1.15rem; font-weight:600; border-radius:2em; box-shadow:0 2px 12px #3a7bd544; background: linear-gradient(90deg, #3a7bd5, #00d2ff); transition: background 0.3s, box-shadow 0.2s;">Login</button>
+        <div id="errorMsg" class="error text-center mt-2"></div>
+      </form>
+    </div>
+  </div>
+  <style>
+    .login-bg-info {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      pointer-events: none;
+    }
+    .info-panel {
+      margin: 2.5em 0 0 2.5em;
+      background: rgba(58,123,213,0.85);
+      border-radius: 2em;
+      padding: 2.2em 2.5em 1.5em 2.5em;
+      box-shadow: 0 8px 32px #3a7bd522;
+      max-width: 420px;
+      pointer-events: auto;
+      border: 1.5px solid #e0eafc;
+    }
+    .wave-bg {
+      position: absolute;
+      bottom: 0; left: 0; width: 100vw; height: 180px;
+      z-index: -1;
+      pointer-events: none;
+    }
+    @media (max-width: 900px) {
+      .info-panel { margin: 1.2em 0 0 1.2em; padding: 1.2em 1.2em 1em 1.2em; max-width: 98vw; }
+      .wave-bg { height: 120px; }
+    }
+    @media (max-width: 600px) {
+      .info-panel { margin: 0.5em 0 0 0.5em; padding: 1em 0.7em 0.7em 0.7em; font-size: 0.98em; }
+      .wave-bg { height: 70px; }
+    }
+  </style>
+  <style>
+    .glass-card {
+      background: rgba(255,255,255,0.85);
+      border-radius: 2.2em;
+      box-shadow: 0 8px 32px #3a7bd522, 0 1.5px 6px #b8c6db33;
+      backdrop-filter: blur(8px);
+      border: 1.5px solid #e0eafc;
+      animation: fadeInCard 1.2s;
+    }
+    @keyframes fadeInCard {
+      from { opacity: 0; transform: translateY(30px) scale(0.98); }
+      to { opacity: 1; transform: none; }
+    }
+    .animated-btn:hover, .animated-btn:focus {
+      background: linear-gradient(90deg, #245ea8, #3a7bd5);
+      box-shadow: 0 8px 32px #3a7bd544;
+      outline: 2px solid #00d2ff;
+      outline-offset: 2px;
+      transform: scale(1.04);
+    }
+    @media (max-width: 600px) {
+      .glass-card { max-width: 98vw; padding: 1.2em 0.5em; }
+      .login-container { padding: 0.5em; }
+      .form-control-lg { font-size: 1.08rem; }
+    }
+  </style>
   <script>
-    document.getElementById('loginForm').onsubmit = function(e) {
+    document.getElementById('loginForm').onsubmit = async function(e) {
       e.preventDefault();
-      const user = document.getElementById('username').value.trim().toLowerCase();
+      const user = document.getElementById('username').value.trim();
       const pass = document.getElementById('password').value;
-      let role = '';
-      if (user === 'admin' && pass === 'admin123') {
-        role = 'admin';
-      } else if (user === 'developer' && pass === 'dev123') {
-        role = 'developer';
-      } else if (user === 'user' && pass === 'user123') {
-        role = 'user';
-      }
-      if (role) {
+      try {
+        const res = await fetch('http://localhost:3001/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: user, password: pass })
+        });
+        if (!res.ok) throw new Error('Invalid credentials');
+        const data = await res.json();
         localStorage.setItem('ussm_logged_in', '1');
-        localStorage.setItem('ussm_role', role);
+        localStorage.setItem('ussm_role', data.role);
+        localStorage.setItem('ussm_user', user); // Store username for per-user customization
+        // Fetch userId from backend and store it
+        const usersRes = await fetch('http://localhost:3001/api/users');
+        const users = await usersRes.json();
+        const matched = users.find(u => u.username === user);
+        if (matched && matched.id) {
+          localStorage.setItem('ussm_userId', matched.id);
+        }
         window.location.href = 'dashboard.html';
-      } else {
+      } catch (err) {
         document.getElementById('errorMsg').textContent = 'Invalid credentials';
       }
     };
     // Do not auto-redirect to dashboard. Always require login.
-  </script>
+    </script>
 </body>
 </html>
 
-     
+
